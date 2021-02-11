@@ -4,18 +4,19 @@ on:
     - cron: '*/20 * * * *'
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Update AUTHORS
-      run: |
-        git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > README
-    - name: Create Pull Request
-      uses: isabelrios/create-pull-request@v3
-      with:
-        commit-message: update authors
-        title: Update README
-        branch: test-pr
-
+  main:
+    name: "update file"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Update AUTHORS
+        run: |
+          git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > README
+      - name: Create Pull Request
+        uses: isabelrios/create-pull-request@v3
+        with:
+          commit-message: update authors
+          title: Update README
+          branch: test-pr
