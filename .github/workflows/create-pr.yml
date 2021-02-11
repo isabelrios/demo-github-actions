@@ -31,10 +31,9 @@ jobs:
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
         git config --global user.name "Firefox Test Engineering"
-        git diff --quiet || (git add bitrise.yml && git commit -m "Update file")
+        git diff --quiet || (git add bitrise.yml && git commit -m "Update bitrise file")
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: update
-        title: Update README
+        title: Bitrise changes
         branch: test-pr-new-commit
