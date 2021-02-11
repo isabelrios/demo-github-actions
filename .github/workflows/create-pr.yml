@@ -15,7 +15,7 @@ jobs:
         run: |
           git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > README
       - name: Create Pull Request
-        uses: isabelrios/demo-github-actions@v3.5.0
+        uses: peter-evans/create-pull-request@v3
         with:
           commit-message: update authors
           title: Update README
