@@ -31,7 +31,7 @@ jobs:
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
         git config --global user.name "Firefox Test Engineering"
-        git diff --quiet || (git add README && git commit -m "Updated Readme file")
+        git diff --quiet || (git add bitrise.yml && git commit -m "Update file")
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
