@@ -1,9 +1,10 @@
+
 import os
 import re
 import sys
 import pathlib
 from shutil import copyfile
-import yaml
+from ruamel.yaml import YAML
 
 
 import requests
@@ -22,7 +23,7 @@ curl ${BITRISE_STACK_INFO} | jq ' . | keys'
 '''
 pattern = 'osx-xcode-'
 BITRISE_YML = 'bitrise.yml'
-WORKFLOW = 'RunUnitTests'
+WORKFLOW = 'NewXcodeVersions'
 
 resp = requests.get(BITRISE_STACK_INFO)
 resp.raise_for_status()
@@ -57,7 +58,7 @@ def largest_version():
             p = parse_semver(item)
             if p:
                 if count == 0 or semver.compare(largest, p) == -1:
-                    largest = p 
+                    largest = p
                 count += 1
     return '{0}.x'.format(largest.split('.0')[0])
 
@@ -76,16 +77,30 @@ if __name__ == '__main__':
     largest_semver = largest_version()
 
     tmp_file = 'tmp.yml'
+
     with open(BITRISE_YML, 'r') as infile:
-        y = yaml.safe_load(infile)
-        current_semver = y['workflows'][WORKFLOW]['meta']['bitrise.io']['stack'] 
+
+        obj_yaml = YAML()
+
+        # prevents re-formatting of yml file
+        obj_yaml.preserve_quotes = True
+        obj_yaml.width = 4096
+
+        y = obj_yaml.load(infile)
+
+        current_semver = y['workflows'][WORKFLOW]['meta']['bitrise.io']['stack']
+
+        # remove pattern prefix from current_semver to compare with largest
+        current_semver = current_semver.split(pattern)[1]
 
         if current_semver == largest_semver:
-            print('XCode version unchanged! aborting.')
+            print('Xcode version unchanged! aborting.')
         else:
-            print('New XCode version available: {0} ... updating bitrise.yml!'.format(largest_semver))
-            y['workflows'][WORKFLOW]['meta']['bitrise.io']['stack'] = largest_semver 
+            print('New Xcode version available: {0} ... updating bitrise.yml!'.format(largest_semver))
+            # add prefix pattern back to be recognizable by bitrise
+            # as a valid stack value
+            y['workflows'][WORKFLOW]['meta']['bitrise.io']['stack'] = '{0}{1}'.format(pattern, largest_semver)
             with open(tmp_file, 'w+') as tmpfile:
-                yaml.dump(y, tmpfile, default_flow_style=False) 
+                obj_yaml.dump(y, tmpfile)
                 copyfile(tmp_file, BITRISE_YML)
-
+                os.remove(tmp_file)
