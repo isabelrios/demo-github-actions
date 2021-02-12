@@ -7,7 +7,7 @@ pull_request_rules:
           message: This pull request has conflicts when rebasing. Could you fix it @{{author}}?
   - name: MickeyMoz
     conditions:
-      - author=github-actions[bot]
+      - author=isabelrios
       - files~=(bitrise.yml)
     actions:
       review:
