@@ -36,7 +36,7 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Auto Update Bitrise with latest Xcode version found
-        author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+        author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: GitHub <noreply@github.com>
         title: Auto Update Bitrise
         branch: test-pr-new-commit5
