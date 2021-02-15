@@ -37,7 +37,7 @@ jobs:
       with:
         commit-message: Auto Update Bitrise with latest Xcode version found
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
-        committer: GitHub <noreply@github.com>
+        committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Bitrise
         branch: test-pr-new-commit6
         token: ${{ secrets.GITHUB_TOKEN }}
