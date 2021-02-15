@@ -40,3 +40,4 @@ jobs:
         committer: GitHub <noreply@github.com>
         title: Auto Update Bitrise
         branch: test-pr-new-commit6
+        token: ${{ secrets.GITHUB_TOKEN }}
