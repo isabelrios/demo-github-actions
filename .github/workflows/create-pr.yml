@@ -39,4 +39,4 @@ jobs:
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: GitHub <noreply@github.com>
         title: Auto Update Bitrise
-        branch: test-pr-new-commit5
+        branch: test-pr-new-commit6
