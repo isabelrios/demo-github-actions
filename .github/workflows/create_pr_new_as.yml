@@ -25,7 +25,7 @@ jobs:
         pip install -r requirements.txt
     - name: Modify carthage 
       run: |
-        python queryTags.py
+        python update_application_services.py
     - name: Commit carthage changes a-s
       run: |-
         git diff
