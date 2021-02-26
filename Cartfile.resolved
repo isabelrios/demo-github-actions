@@ -1,0 +1,5 @@
+github "foo-bar-baz"          ~> 2.7.2
+github "blabla-bla" "86.0"
+
+# Use release version of application-services
+github "mozilla/application-services"      "v69.0.0"
