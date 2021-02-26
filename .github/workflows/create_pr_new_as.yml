@@ -39,5 +39,5 @@ jobs:
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile
-        branch: test-pr-new-commit6
+        branch: test-pr-new-commit7
         token: ${{ secrets.GITHUB_TOKEN }}
