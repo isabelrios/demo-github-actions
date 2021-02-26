@@ -72,34 +72,30 @@ def read_cartfile_tag_version():
                 return(current_tag_version)
 
 def update_cartfile_tag_version(current_tag, as_repo_tag):
-    # read the file and change it
-    #value_to_change = "v70.0.0"
-    #current_value = "v69.0.0"
-
-    file = open("Cartfile", "rt")
+    # read the Cartfile and change it
+    file = open("Cartfile", "r+")
     data = file.read()
-
-    print(data)
     data = data.replace(current_tag, as_repo_tag)
-
-    file.close()
-    file = open("Cartfile", "wt")
     file.write(data)
 
     file.close()
 
 
-def update_cartfile_resolved_tag_version(repo_tag):
-    # read the file and change it
-    print("hola")
+def update_cartfile_resolved_tag_version(current_tag_version, repo_tag_version):
+    # read the Cartfile.resolved and change it
+    file = open("Cartfile.resolved", "r+")
+    data = file.read()
+    data = data.replace(current_tag, as_repo_tag)
+    file.write(data)
+    file.close()
 
 
 def compare_versions(current_tag_version, repo_tag_version):
     if current_tag_version < repo_tag_version:
-        print("update")
+        print("Update A-S version and create PR")
         return True
     else:
-        print("do nothing")
+        print("No new versions, skip")
         return False
 
 if __name__ == '__main__':
