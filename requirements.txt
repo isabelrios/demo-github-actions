@@ -1,4 +1,4 @@
 semver
 requests
 ruamel.yaml
-github
+pygithub
