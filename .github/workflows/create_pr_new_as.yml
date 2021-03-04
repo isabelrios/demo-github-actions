@@ -1,7 +1,7 @@
 name: Create a PR to build the app using newest a-s version available
 on:
   schedule:
-    - cron: '* 9 * * *'
+    - cron: '*/10 * * * *'
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
         pip install -r requirements.txt
     - name: Modify carthage 
       run: |
-        python update_application_services.py
+        python ./test-fixtures/update_application_services.py
     - name: Commit carthage changes a-s
       run: |-
         git diff
