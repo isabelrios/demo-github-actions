@@ -28,7 +28,7 @@ def get_latest_as_version():
     latest_tag_version = tags['name']
     return latest_tag_version
     '''
-    g = github.Github(GITHUB_TOKEN)
+    g = Github(GITHUB_TOKEN)
     repo = g.get_repo(GITHUB_REPO)
 
     latest_tag = repo.get_tags()[0].name
