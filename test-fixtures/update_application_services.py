@@ -2,6 +2,7 @@ import os, json
 import requests
 import datetime
 import github
+from github import Github
 from pprint import pprint
 from enum import Enum
 
