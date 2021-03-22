@@ -32,7 +32,6 @@ def get_latest_as_version():
     repo = g.get_repo(GITHUB_REPO)
 
     latest_tag = repo.get_tags()[0].name
-    os.environ["LATEST_TAG"] = latest_tag_version
     return (str(latest_tag))
 
 def read_cartfile_tag_version():
@@ -63,7 +62,6 @@ def read_cartfile_tag_version():
                 version_ends = version_starts +7
                 for i in range(version_starts, version_ends):
                     current_tag_version+=line[i]
-                os.environ["CURRENT_TAG"] = current_tag_version
                 return(current_tag_version)
 
 
@@ -100,8 +98,10 @@ def main():
     if not github_access_token:
         print("No GITHUB_TOKEN set. Exiting.")
 
-    as_repo_tag= get_latest_as_version()
+    as_repo_tag = get_latest_as_version()
+    os.environ["LATEST_TAG"] = as_repo_tag
     current_tag = read_cartfile_tag_version()
+    os.environ["CURRENT_TAG"] = current_tag
     if compare_versions(current_tag, as_repo_tag):
         update_cartfile_tag_version(current_tag, as_repo_tag, CARTFILE)
         update_cartfile_tag_version(current_tag, as_repo_tag, "Cartfile.resolved")
