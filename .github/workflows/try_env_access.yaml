@@ -30,12 +30,6 @@ jobs:
       run: |
         version=$(./read_tag.sh)
         echo "$version" >> $GITHUB_ENV
-    - name: Run Script option2
-      run: |
-        echo "version in other step ${{ env.version }}"
-    - name: retrieve env 
-      run: |
-        echo ${{ env.version }}
     - name: Commit carthage changes a-s
       run: |-
         git diff
@@ -50,4 +44,5 @@ jobs:
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile ${{ env.version }}
         branch: test-pr-new-commit8-${{ env.version }}
+        label: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
