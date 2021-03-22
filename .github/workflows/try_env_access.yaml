@@ -43,5 +43,5 @@ jobs:
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile ${{ env.version }}
         branch: test-pr-new-commit8-${{ env.version }}
-        label: Do Not Merge ⛔️
+        labels: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
