@@ -32,8 +32,8 @@ def get_latest_as_version():
     repo = g.get_repo(GITHUB_REPO)
 
     latest_tag = repo.get_tags()[0].name
+    os.environ["LATEST_TAG"] = latest_tag_version
     return (str(latest_tag))
-    print(latest_tag)
 
 def read_cartfile_tag_version():
     # Read Cartfile to find the current a-s version
@@ -63,7 +63,7 @@ def read_cartfile_tag_version():
                 version_ends = version_starts +7
                 for i in range(version_starts, version_ends):
                     current_tag_version+=line[i]
-                    os.environ["CURRENT_TAG"] = current_tag_version
+                os.environ["CURRENT_TAG"] = current_tag_version
                 return(current_tag_version)
 
 
