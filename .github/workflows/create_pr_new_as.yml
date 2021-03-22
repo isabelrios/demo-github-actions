@@ -26,8 +26,12 @@ jobs:
     - name: Modify carthage 
       run: |
         python ./test-fixtures/update_application_services.py
-        echo "Hello"
+    - name: Show var
+      run: |
         echo ${{ secrets.CURRENT_TAG}}
+     - name: Show var2
+      run: |
+        echo ${{ env.CURRENT_TAG}}
     - name: Commit carthage changes a-s
       run: |-
         git diff
