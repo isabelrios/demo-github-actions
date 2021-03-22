@@ -1,4 +1,4 @@
-name: Create a PR to build the app using newest a-s version available
+name: Second option
 on:
   schedule:
     - cron: '*/10 * * * *'
@@ -45,9 +45,9 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Auto Update Cartfile with latest A-S version found ${{ secrets.CURRENT_TAG}}
+        commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
-        title: Auto Update Cartfile
-        branch: test-pr-new-commit8
+        title: Auto Update Cartfile ${{ env.version }}
+        branch: test-pr-new-commit8-${{ env.version }}
         token: ${{ secrets.GITHUB_TOKEN }}
