@@ -64,7 +64,7 @@ def read_cartfile_tag_version():
                 for i in range(version_starts, version_ends):
                     current_tag_version+=line[i]
                     os.environ["CURRENT_TAG"] = current_tag_version
-                    print(os.environ["CURRENT_TAG"])
+                    print("The current tag is: +"os.environ["CURRENT_TAG"])
                 return(current_tag_version)
 
 
