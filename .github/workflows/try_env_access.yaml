@@ -33,8 +33,7 @@ jobs:
         $version >> $GITHUB_ENV
     - name: Run Script option2
       run: |
-        echo "$version" >> $GITHUB_ENV
-        echo "${{ env.version }}"
+        echo "version in other step ${{ env.version }}"
     - name: retrieve env 
       run: |
         echo ${{ env.version }}
