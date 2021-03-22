@@ -28,8 +28,7 @@ jobs:
         python ./test-fixtures/update_application_services.py
     - name: Run Script
       run: |
-        version=$(./read_tag.sh)
-        echo "$version" >> $GITHUB_ENV
+        echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
       run: |-
         git diff
