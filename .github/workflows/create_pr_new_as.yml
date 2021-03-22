@@ -26,6 +26,8 @@ jobs:
     - name: Modify carthage 
       run: |
         python ./test-fixtures/update_application_services.py
+        echo "Hello"
+        echo ${{ secrets.CURRENT_TAG}}
     - name: Commit carthage changes a-s
       run: |-
         git diff
@@ -35,7 +37,7 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Auto Update Cartfile with latest A-S version found
+        commit-message: Auto Update Cartfile with latest A-S version found ${{ secrets.CURRENT_TAG}}
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile
