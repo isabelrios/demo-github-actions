@@ -77,5 +77,8 @@ if __name__ == '__main__':
     if compare_versions(current_tag, as_repo_tag):
         update_cartfile_tag_version(current_tag, as_repo_tag, CARTFILE)
         update_cartfile_tag_version(current_tag, as_repo_tag, "Cartfile.resolved")
+        
+        f= open("newest_tag.txt","w+")
+        f.write(as_repo_tag+"\n")
 
-
+        
