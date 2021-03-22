@@ -29,7 +29,7 @@ jobs:
     - name: Show var
       run: |
         echo ${{ secrets.CURRENT_TAG}}
-     - name: Show var2
+    - name: Show var2
       run: |
         echo ${{ env.CURRENT_TAG}}
     - name: Commit carthage changes a-s
