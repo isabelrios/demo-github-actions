@@ -30,6 +30,7 @@ jobs:
       run: |
         echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
     - name: Remove file
+      run: |
         rm newest_tag.txt
     - name: Commit carthage changes a-s
       run: |-
