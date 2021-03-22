@@ -29,8 +29,8 @@ jobs:
     - name: Run Script
       run: |
         echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
-        echo "${{ secrets.CURRENT_TAG}}"
-        echo "${{ secrets.LATEST_TAG}}"
+        echo "${{ secrets.CURRENT_TAG }}"
+        echo "${{ secrets.LATEST_TAG }}"
     - name: Commit carthage changes a-s
       run: |-
         git diff
