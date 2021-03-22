@@ -99,12 +99,14 @@ def main():
         print("No GITHUB_TOKEN set. Exiting.")
 
     as_repo_tag = get_latest_as_version()
-    os.environ["LATEST_TAG"] = as_repo_tag
     current_tag = read_cartfile_tag_version()
-    os.environ["CURRENT_TAG"] = current_tag
+
     if compare_versions(current_tag, as_repo_tag):
         update_cartfile_tag_version(current_tag, as_repo_tag, CARTFILE)
         update_cartfile_tag_version(current_tag, as_repo_tag, "Cartfile.resolved")
+
+        f= open("newest_tag.txt","w+")
+        f.write(as_repo_tag+"\n")
 
 if __name__ == '__main__':
     main()

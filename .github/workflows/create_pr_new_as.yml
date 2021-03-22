@@ -29,8 +29,8 @@ jobs:
     - name: Run Script
       run: |
         echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
-        echo "${{ env.CURRENT_TAG }}"
-        echo "${{ env.LATEST_TAG }}"
+    - name: Remove file
+        rm newest_tag.txt
     - name: Commit carthage changes a-s
       run: |-
         git diff
