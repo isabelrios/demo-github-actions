@@ -26,11 +26,16 @@ jobs:
     - name: Modify carthage 
       run: |
         python ./test-fixtures/update_application_services.py
-    - shell: bash
-      id: Show var
+    - name: Run Script
       run: |
-          version=$(./read_tag.sh)
-          echo $description
+        version=$(./read_tag.sh)
+        echo $version
+    - name: Run Script option2
+      run: |
+        echo 'version=$(./read_tag.sh)' >> $GITHUB_ENV
+    - name: retrieve env 
+      run: |
+        echo ${{ env.version }}
     - name: Commit carthage changes a-s
       run: |-
         git diff
