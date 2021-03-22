@@ -29,10 +29,10 @@ jobs:
     - name: Run Script
       run: |
         version=$(./read_tag.sh)
-        echo $version
+        echo "Current version is $version"
     - name: Run Script option2
       run: |
-        echo 'version=$(./read_tag.sh)' >> $GITHUB_ENV
+        echo '$version=$(./read_tag.sh)' >> $GITHUB_ENV
     - name: retrieve env 
       run: |
         echo ${{ env.version }}
