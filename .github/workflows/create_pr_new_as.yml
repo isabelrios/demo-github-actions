@@ -28,9 +28,7 @@ jobs:
         python ./test-fixtures/update_application_services.py
     - name: Run Script
       run: |
-        version=$(./read_tag.sh)
-        echo "Current version is $version"
-        '$version' >> $GITHUB_ENV
+        echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
     - name: Run Script option2
       run: |
         echo 'env version is "${{ env.version }}"'
