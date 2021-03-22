@@ -29,12 +29,6 @@ jobs:
     - name: Run Script
       run: |
         echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
-    - name: Run Script option2
-      run: |
-        echo 'env version is "${{ env.version }}"'
-    - name: retrieve env 
-      run: |
-        echo ${{ env.version }}
     - name: Commit carthage changes a-s
       run: |-
         git diff
@@ -44,9 +38,10 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Auto Update Cartfile with latest A-S version found "${{ env.version }}"
+        commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
-        title: Auto Update Cartfile
+        title: Auto Update Cartfile ${{ env.version }}
         branch: test-pr-new-commit8-${{ env.version }}
+        label: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
