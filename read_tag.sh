@@ -1,5 +1,5 @@
 #!/bin/bash
-filename="current_tag.txt"
+filename="newest_tag.txt"
 #!/usr/bin/bas
 while read -r line; do
     name="$line"
