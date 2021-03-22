@@ -29,7 +29,7 @@ jobs:
     - name: Run Script
       run: |
         version=$(./read_tag.sh)
-        echo $version >> $GITHUB_ENV
+        echo "$version" >> $GITHUB_ENV
     - name: Run Script option2
       run: |
         echo "version in other step ${{ env.version }}"
