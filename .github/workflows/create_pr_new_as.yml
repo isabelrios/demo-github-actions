@@ -29,7 +29,9 @@ jobs:
     - name: Run Script
       run: |
         echo "pwd"
-        echo "version=$(./read_tag_test.sh)" >> $GITHUB_ENV
+        echo $pwd
+        echo "$pwd"
+        echo "version=$(./test-fixtures/read_tag_test.sh)" >> $GITHUB_ENV
     - name: Remove file
       run: |
         rm newest_tag.txt
