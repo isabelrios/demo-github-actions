@@ -105,7 +105,7 @@ def main():
         update_cartfile_tag_version(current_tag, as_repo_tag, CARTFILE)
         update_cartfile_tag_version(current_tag, as_repo_tag, "Cartfile.resolved")
 
-        f= open("newest_tag.txt","w+")
+        f= open("test-fixtures/newest_tag.txt","w+")
         f.write(as_repo_tag+"\n")
 
 if __name__ == '__main__':

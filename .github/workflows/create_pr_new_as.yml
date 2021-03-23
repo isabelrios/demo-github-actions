@@ -28,9 +28,12 @@ jobs:
         python ./test-fixtures/update_application_services.py
     - name: Run Script
       run: |
-        echo "version=$(test-fixtures/read_tag_test.sh)" >> $GITHUB_ENV
+        cd test-fixtures/
+        echo "version=$(./read_tag_test.sh)" >> $GITHUB_ENV
     - name: Remove file
       run: |
+        pwd
+        cd test-fixtures/
         rm newest_tag.txt
     - name: Commit carthage changes a-s
       run: |-
