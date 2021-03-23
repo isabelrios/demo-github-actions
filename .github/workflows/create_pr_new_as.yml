@@ -28,7 +28,9 @@ jobs:
         python ./test-fixtures/update_application_services.py
     - name: Run Script
       run: |
-        echo "version=$(./read_tag.sh)" >> $GITHUB_ENV
+        echo pwd
+        cd test-fixtures/
+        echo "version=$(./read_tag_test.sh)" >> $GITHUB_ENV
     - name: Remove file
       run: |
         rm newest_tag.txt
