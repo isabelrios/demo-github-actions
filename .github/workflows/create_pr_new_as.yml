@@ -35,7 +35,7 @@ jobs:
       run: |
         pwd
         cd test-fixtures/
-        rm newest_tag.txt
+        [ -f read_tag_test.sh ] && rm read_tag_test.sh
     - name: Commit carthage changes a-s
       run: |-
         git diff
