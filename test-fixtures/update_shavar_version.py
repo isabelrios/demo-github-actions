@@ -70,7 +70,7 @@ def find_version(line):
 
 
 def read_cartfile_version(file):
-    # Read Cartfile to find the current a-s version
+    # Read Cartfile and Carfile.resolved to find the current a-s version
     with open(file) as fp:
         line = fp.readline()
         cnt = 1
