@@ -5,11 +5,11 @@ from github import Github
 
 
 SHAVARD_REPO = 'mozilla-services/shavar-prod-lists'
-GITHUB_TOKEN = "1fb303500a320a34e896de1f707f79e856d615b2"
+github_access_token = os.getenv("GITHUB_TOKEN")
 
 def  get_latest_branch_and_commit():
 
-    g = Github(GITHUB_TOKEN)
+    g = Github(github_access_token)
     repo = g.get_repo(SHAVARD_REPO)
 
     response_json = list(repo.get_branches())
