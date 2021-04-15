@@ -1,6 +1,6 @@
 github "foo-bar-baz"          ~> 2.7.2
-github "blabla-bla" "86.0"
+github "blabla-bla" "87.0"
 
 # Use release version of application-services
 github "mozilla/application-services"      "v74.0.1"
-github "mozilla-services/shavar-prod-lists" "86.0"
+github "mozilla-services/shavar-prod-lists" "87.0"
