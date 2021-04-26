@@ -41,7 +41,7 @@ jobs:
         status=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches/test-pr-new-commit8-${{ env.version }} | jq -r '.name | select(contains("test"))')
         if [ "$status" == "test-pr-new-commit8-${{ env.version }}" ]; then echo "EXISTS=true" >> $GITHUB_ENV; else echo "NO";fi
     - name: Script step to try to rebase
-      if: ${{ env.EXISTS }}
+      if: env.EXISTS == 'true'
       run: |-
         echo "running rebase"
         git branch -r
@@ -58,7 +58,7 @@ jobs:
         git config --global user.name "Firefox Test Engineering"
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
-      if: ${{ env.RebaseNeeded }}
+      if: env.RebaseNeeded == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
