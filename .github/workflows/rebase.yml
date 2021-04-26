@@ -48,7 +48,7 @@ jobs:
         echo $hash1
         hash2=$(git merge-base master origin/test-pr-new-commit8-v75.2.0)
         echo $hash2
-        [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "Rebase is required"
+        [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
       run: |-
         git diff
@@ -56,6 +56,7 @@ jobs:
         git config --global user.name "Firefox Test Engineering"
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
+      if: ! ${{ env.EXISTS }} ||  ${{ env.RebaseNeeded }}
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
