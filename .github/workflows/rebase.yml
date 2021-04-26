@@ -47,11 +47,9 @@ jobs:
         echo "running rebase"
         git branch -r
         git fetch origin
-        hash1=$(git show-ref --heads -s master)
-        echo $hash1
-        hash2=$(git merge-base master origin/test-as-v75.2.0)
-        echo $hash2
-        [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=true" >> $GITHUB_ENV
+        git fetch &> /dev/null
+        diffs=$(git diff master origin/test-as)
+        if [ -z "$diffs" ] ; then echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
       if: env.NOEXISTS == 'true'
       run: |-
@@ -67,6 +65,6 @@ jobs:
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile ${{ env.version }}
-        branch: test-as-${{ env.version }}
+        branch: test-as
         labels: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
