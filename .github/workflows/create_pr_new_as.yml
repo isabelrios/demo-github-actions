@@ -36,6 +36,9 @@ jobs:
         pwd
         cd test-fixtures/
         [ ! -e newest_tag.txt ] || rm newest_tag.txt
+    - name: Script to check if branch exists
+      run: |-
+        if git branch --all | grep commit8-${{ env.version }}; then echo "IT EXISTS..START MERGE" ; else echo "NOT FOUND" ; fi
     - name: Commit carthage changes a-s
       run: |-
         git diff
