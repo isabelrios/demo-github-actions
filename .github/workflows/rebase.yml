@@ -48,7 +48,7 @@ jobs:
         git fetch origin
         hash1=$(git show-ref --heads -s master)
         echo $hash1
-        hash2=$(git merge-base master origin/test-pr-new-commit8-v75.2.0)
+        hash2=$(git merge-base master test-pr-new-commit8-v75.2.0)
         echo $hash2
         [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
