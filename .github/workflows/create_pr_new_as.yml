@@ -38,7 +38,7 @@ jobs:
         [ ! -e newest_tag.txt ] || rm newest_tag.txt
     - name: Script to check if branch exists change name
       run: |-
-        status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-new-commit8-v75.2.0"))')
+        status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-as"))')
         echo $status
         if [ -z "$status" ]; then echo "NOEXISTS=false" >> $GITHUB_ENV; else echo "EXISTS=true"  >> $GITHUB_ENV;fi
     - name: Script step to try to rebase
@@ -49,7 +49,7 @@ jobs:
         git fetch origin
         hash1=$(git show-ref --heads -s master)
         echo $hash1
-        hash2=$(git merge-base master origin/test-pr-new-commit8-v75.2.0)
+        hash2=$(git merge-base master origin/test-pr-as-v75.2.0)
         echo $hash2
         [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
@@ -67,6 +67,6 @@ jobs:
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile ${{ env.version }}
-        branch: test-pr-new-commit8-${{ env.version }}
+        branch: test-pr-as-${{ env.version }}
         labels: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
