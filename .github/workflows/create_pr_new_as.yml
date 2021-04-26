@@ -38,7 +38,8 @@ jobs:
         [ ! -e newest_tag.txt ] || rm newest_tag.txt
     - name: Script to check if branch exists
       run: |-
-        if git branch --all | grep commit8-${{ env.version }}; then echo "IT EXISTS..START MERGE" ; else echo "NOT FOUND" ; fi
+        status=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches/test-pr-new-commit8-${{ env.version }} | jq -r '.name | select(contains("test"))')
+        if [ "$status" == "test-pr-new-commit8-${{ env.version }}" ]; then echo "EXISTS"; else echo "NO";fi
     - name: Commit carthage changes a-s
       run: |-
         git diff
