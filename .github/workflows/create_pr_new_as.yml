@@ -48,7 +48,7 @@ jobs:
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
-      if: ${{ env.EXISTS }} }}
+      if: ${{ env.EXISTS }} }} == false
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
