@@ -36,7 +36,7 @@ jobs:
         pwd
         cd test-fixtures/
         [ ! -e newest_tag.txt ] || rm newest_tag.txt
-    - name: Script to check if branch exists
+    - name: Script to check if branch exists change name
       run: |-
         status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-new-commit8-v75.2.0"))')
         echo $status
