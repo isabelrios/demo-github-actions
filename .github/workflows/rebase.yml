@@ -50,8 +50,9 @@ jobs:
         echo $hash1
         hash2=$(git merge-base master test-pr-new-commit8-v75.2.0)
         echo $hash2
-        [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV
+        [ "${hash1}" = "${hash2}" ] && echo "OK" || echo "RebaseNeeded=true" >> $GITHUB_ENV
     - name: Commit carthage changes a-s
+      if: env.NOEXISTS == 'true'
       run: |-
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
