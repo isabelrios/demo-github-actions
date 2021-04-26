@@ -60,7 +60,7 @@ jobs:
         git config --global user.name "Firefox Test Engineering"
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
-      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'true'
+      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false'
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
