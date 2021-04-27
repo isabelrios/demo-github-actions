@@ -38,7 +38,7 @@ jobs:
         [ ! -e newest_tag.txt ] || rm newest_tag.txt
     - name: Script to check if branch exists change name
       run: |-
-        status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-as"))')
+        status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-as-${{ env.version }}"))')
         echo $status
         if [ -z "$status" ]; then echo "BRANCH_CREATED=false" >> $GITHUB_ENV; else echo "BRANCH_CREATED=true"  >> $GITHUB_ENV;fi
     - name: If branch alrady exists check if rebase needed
