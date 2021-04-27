@@ -52,14 +52,14 @@ jobs:
         echo $diffs
         if [ -z "$diffs" ] ; then echo "OK" ; else echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
     - name: Commit carthage changes a-s
-      if: env.RebaseNeeded == 'true' || env.BRANCH_CREATED == 'false'
+      if: ( env.RebaseNeeded == 'true' || env.BRANCH_CREATED == 'false' )
       run: |-
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
         git config --global user.name "Firefox Test Engineering"
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
-      if: env.RebaseNeeded == 'true' || env.BRANCH_CREATED == 'false'
+      if: (env.RebaseNeeded == 'true' || env.BRANCH_CREATED == 'false')
       uses: peter-evans/create-pull-request@v3
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
