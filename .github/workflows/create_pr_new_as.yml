@@ -40,17 +40,17 @@ jobs:
       run: |-
         status=$(curl -X GET -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/isabelrios/demo-github-actions/branches | jq -r '.[].name | select(contains("test-pr-as"))')
         echo $status
-        if [ -z "$status" ]; then echo "NOEXISTS=false" >> $GITHUB_ENV; else echo "EXISTS=true"  >> $GITHUB_ENV;fi
-    - name: Script step to try to rebase
-      if: env.EXISTS == 'true'
+        if [ -z "$status" ]; then echo "BRANCH_CREATED=false" >> $GITHUB_ENV; else echo "BRANCH_CREATED=true"  >> $GITHUB_ENV;fi
+    - name: If branch alrady exists check if rebase needed
+      if: env.BRANCH_CREATED == 'true'
       run: |-
         echo "running rebase"
         git fetch &> /dev/null
         diffs=$(git diff master origin/test-pr-as-${{ env.version }})
         echo $diffs
-        if [ -z "$diffs" ] ; then echo "OK" ; else echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
-    - name: Commit carthage changes a-s
-      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false''
+        if [ -z "$diffs" ] ; then echo "OK" ; else echo "REBASE_NEEDED=true" >> $GITHUB_ENV ; fi
+    - name: If branch does not exists or rebase needed run this
+      if: env.REBASE_NEEDED == 'true' || env.BRANCH_CREATED == 'false'
       run: |-
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
@@ -58,7 +58,7 @@ jobs:
         git diff --quiet || (git add Cartfile Cartfile.resolved)
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
-      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false'
+      if: env.REBASE_NEEDED == 'true' || env.BRANCH_CREATED == 'false'
       with:
         commit-message: Auto Update Cartfile with latest A-S version found ${{ env.version }}
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
