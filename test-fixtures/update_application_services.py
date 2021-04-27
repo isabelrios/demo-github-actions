@@ -35,7 +35,7 @@ def get_latest_as_version():
     return (str(latest_tag))
 
 def read_cartfile_tag_version():
-    # Read Cartfile to find the current a-s version
+    # Read Cartfile to find the current a-s version aa
     print("Path:" + os.getcwd())
     with open(CARTFILE) as fp:
         line = fp.readline()
