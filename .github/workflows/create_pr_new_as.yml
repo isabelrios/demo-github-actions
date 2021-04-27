@@ -47,7 +47,7 @@ jobs:
         echo "running rebase"
         git fetch &> /dev/null
         diffs=$(git diff master origin/test-pr-as-${{ env.version }})
-        echo "$diffs"
+        echo $diffs
         if [ -z "$diffs" ] ; then echo "OK" ; else echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
     - name: Commit carthage changes a-s
       if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false''
