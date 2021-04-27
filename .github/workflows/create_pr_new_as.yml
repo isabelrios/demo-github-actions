@@ -47,9 +47,9 @@ jobs:
         echo "running rebase"
         git fetch &> /dev/null
         diffs=$(git diff master origin/test-pr-as-${{ env.version }})
-        if [ -z "$diffs" ] ; then echo "OK" || echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
+        if [ -z "$diffs" ] ; then echo "OK" ; else echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
     - name: Commit carthage changes a-s
-      if: env.EXISTS == 'false'
+      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false''
       run: |-
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"

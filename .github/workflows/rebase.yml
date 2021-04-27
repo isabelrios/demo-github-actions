@@ -49,9 +49,10 @@ jobs:
         git fetch origin
         git fetch &> /dev/null
         diffs=$(git diff master origin/test-as)
-        if [ -z "$diffs" ] ; then echo "OK" || echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
+        echo "$diffs"
+        if [ -z "$diffs" ] ; then echo "OK" ; else echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
     - name: Commit carthage changes a-s
-      if: env.NOEXISTS == 'true'
+      if: env.RebaseNeeded == 'true' || env.NOEXISTS == 'false'
       run: |-
         git diff
         git config --global user.email "firefox-test-engineering@mozilla.com"
