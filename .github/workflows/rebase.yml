@@ -49,7 +49,7 @@ jobs:
         git fetch origin
         git fetch &> /dev/null
         diffs=$(git diff master origin/test-as)
-        if [ -z "$diffs" ] ; then echo "OK" || echo "RebaseNeeded=True" >> $GITHUB_ENV ; fi
+        if [ -z "$diffs" ] ; then echo "OK" || echo "RebaseNeeded=true" >> $GITHUB_ENV ; fi
     - name: Commit carthage changes a-s
       if: env.NOEXISTS == 'true'
       run: |-
