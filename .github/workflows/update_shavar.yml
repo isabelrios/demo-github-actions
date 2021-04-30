@@ -2,7 +2,7 @@ name: Create PR when change in Json file
 on: 
   push:
     branches:
-      - shavar-work 
+      - master
 
 jobs:
   build:
