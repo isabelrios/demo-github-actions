@@ -36,11 +36,11 @@ jobs:
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
-        commit-message: Auto Update Cartfile with latest Shavar branch found
+        commit-message: Auto Update Shavar files
         author: MickeyMoz <firefox-test-engineering@mozilla.com>
         committer: MickeyMoz <firefox-test-engineering@mozilla.com>
         title: Auto Update Cartfile with latest shavar
-        branch: test-pr-new-commit-shavar
+        branch: pr-change-shavar-file
         labels: Do Not Merge ⛔️
         token: ${{ secrets.GITHUB_TOKEN }}
 
