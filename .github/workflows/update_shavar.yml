@@ -26,7 +26,7 @@ jobs:
         pip install -r requirements.txt
     - name: Update Shavar Dependencies 
       run: |
-        python ./test-fixtures/update_shavar_version.py
+        python ./test-fixtures/check_shavar_files.py
     - name: Commit if Cartfile and Cartfile.resolved changed
       run: |-
         git diff
