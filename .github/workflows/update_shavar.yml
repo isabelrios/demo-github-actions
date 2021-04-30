@@ -1,8 +1,8 @@
-name: Create a PR to build the app using newest shavar lists available
-
-on:
-  schedule:
-    - cron: '* */23 * * *'
+name: Create PR when change in Json file
+on: 
+  push:
+    branches:
+      - shavar-work 
 
 jobs:
   build:
