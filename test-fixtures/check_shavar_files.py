@@ -30,7 +30,7 @@ class Shavar:
         file_2 = json.dumps(json2, sort_keys=True)
         
         if (file_1 != file_2): 
-            shutil.move('tmp.json', 'base-fingerprinting-track.json')
+            shutil.move('tmp.json', './content-blocker/base-fingerprinting-track.json')
             print("test.json file changed")
         else:
             os.remove('tmp.json')
