@@ -43,7 +43,7 @@ class Shavar:
         res = requests.get(new_url)
         new_list = res.json()
         new_list_str = str(new_list["domains"])
-        new_list_quotes = new_list_str.replace("'",'"').replace(",", ",\n").replace("[", "[\n").replace("]", "\n]")
+        new_list_quotes = new_list_str.replace("'",'"').replace(",", ",\n").replace("[", "[\n ").replace("]", "\n]")
         print(new_list_quotes)
 
         with open("./content-blocker/tmp.json", 'w') as f:
