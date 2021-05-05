@@ -31,14 +31,13 @@ class Shavar:
         
         if (file_1 != file_2): 
             shutil.move('tmp.json', './content-blocker/base-fingerprinting-track.json')
-            print("test.json file changed")
+            print("content blocker file changed")
         else:
             os.remove('tmp.json')
-            print("No changes, remove temporary file created")
+            print("No changes, no need to commit and remove temporary file created")
 
 def main():
     s = Shavar()
-    s.query_download_file()
     s.compare_file("tmp.json", FILE)
 
 if __name__ == '__main__':
