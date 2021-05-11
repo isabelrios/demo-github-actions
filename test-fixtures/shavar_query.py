@@ -39,14 +39,14 @@ class Shavar:
         with open(tmp.name, 'w') as f:
             try:
                 f.write(u_value)
-            except:
+            except IOError:
                 print("Error writing u value to file")
 
         with open(tmp.name) as file:
             try:
                 rows = (line.split(':') for line in file)
                 dict = {row[0]: row[1] for row in rows}
-            except:
+            except IOError:
                 print("Error formatting u value")
 
         append_str = '.json'
@@ -65,7 +65,7 @@ class Shavar:
         with open("./content-blocker/tmp.json", 'w') as f:
             try:
                 f.write(new_list_quotes)
-            except:
+            except IOError:
                 ("Error creating json file")
 
     def compare_file(self, file1, file2):
