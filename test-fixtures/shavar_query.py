@@ -37,11 +37,17 @@ class Shavar:
 
     def process_data_to_get_new_url(self, u_value):
         with open(tmp.name, 'w') as f:
-            f.write(u_value)
+            try:
+                f.write(u_value)
+            except:
+                print("Error writing u value to file")
 
         with open(tmp.name) as file:
-            rows = (line.split(':') for line in file)
-            dict = {row[0]: row[1] for row in rows}
+            try:
+                rows = (line.split(':') for line in file)
+                dict = {row[0]: row[1] for row in rows}
+            except:
+                print("Error formatting u value")
 
         append_str = '.json'
         new_string = dict["u"].strip("\n")
@@ -57,7 +63,10 @@ class Shavar:
         print(new_list_quotes)
 
         with open("./content-blocker/tmp.json", 'w') as f:
-            f.write(new_list_quotes)
+            try:
+                f.write(new_list_quotes)
+            except:
+                ("Error creating json file")
 
     def compare_file(self, file1, file2):
 
