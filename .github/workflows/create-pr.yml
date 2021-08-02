@@ -1,7 +1,5 @@
 name: Try create a new commit
-on:
-  schedule:
-    - cron: '0 12 * * *'
+on: push
 
 jobs:
   build:
