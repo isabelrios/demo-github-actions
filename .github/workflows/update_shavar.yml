@@ -1,7 +1,5 @@
 name: Create PR when change in Json file
-on: 
-  schedule:
-    - cron: '* */12 * * *'
+on: push
 
 jobs:
   build:
