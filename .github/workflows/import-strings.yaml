@@ -15,6 +15,8 @@ jobs:
       with:
         persist-credentials: false 
         token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Get the DATE
+      run: echo "current_date=$(date +"%m-%d-%Y")" >> $GITHUB_ENV
     - name: Run script to import strings
       run: sh ./test-fixtures/import-strings.sh
     - name: Update new strings
@@ -27,7 +29,6 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
       token: ${{ secrets.GITHUB_TOKEN }}
-      #branch: automation/sync-strings-${{ steps.fenix-beta-version.outputs.major-beta-version }}
-      title: "Strings import DATE"        
+      title: "string-import-${{ env.current_date }}"        
       body: "This (automated) PR import string changes"
       labels: needs:review
