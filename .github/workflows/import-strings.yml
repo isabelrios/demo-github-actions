@@ -28,7 +28,7 @@ jobs:
         python ./test-fixtures/force-changes.py
     - name: Update new strings
       run: |-
-        git diff --quiet || (git add file2.txt)
+        git diff || (git add file2.txt)
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
       with:
