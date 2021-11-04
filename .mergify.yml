@@ -19,6 +19,7 @@ pull_request_rules:
   - name: String Import - Auto Merge
     conditions:
       - status-success=pr-complete
+      - files~=(Blockzilla/*/*.lproj/*|Blockzilla/*.lproj/*)
     actions:
       merge:
         method: rebase
