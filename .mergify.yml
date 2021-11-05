@@ -1,5 +1,7 @@
 queue_rules:
   - name: default
+    conditions:
+      - title~=import-string*
 
 pull_request_rules:
   - name: Resolve conflict
@@ -22,8 +24,6 @@ pull_request_rules:
   - name: String Import - Auto Merge
     conditions:
       - title~=import-string*
-      - files~=^Blockzilla\/[^\/]*\/[^\/]*.lproj\/*
-      - files~=^Blockzilla\/[^\/]*.lproj\/*
     actions:
       queue:
         method: rebase

@@ -4,14 +4,14 @@
 /* Label on About screen */
 "About.missionLabel" = "%@ wird von Mozilla entwickelt. Wir setzen uns für ein gesdwsundes, offenes Internet ein.";
 
-/* Label on About screen */
+/* Label  About screen */
 "About.privateBullet1" = "Suchen und surfen direkt in der App";
 
-/* Label on About screen */
+/* Label on  screen */
 "About.privateBullet2" = "Verfolger blockieren (oder Einstellungen ändern, um Verfolger zuzulassen)";
 
 /* Label on About screen */
-"About.privateBullet3" = "Entfernen löscht Cookies sowie Such- und Surf-Chronik";
+"About.privateBullet3" = "ds löscht Cookies sowie Such- und Surf-Chronik";
 
 /* Label on About screen */
 "About.privateBulletHeader" = "sfd privaten Browser verwenden:";
