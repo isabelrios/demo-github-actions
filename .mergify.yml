@@ -1,7 +1,7 @@
 queue_rules:
   - name: default
   - conditions:
-      - check-success=Summary
+      - author=isabelrios
 
 pull_request_rules:
   - name: Resolve conflict
@@ -23,6 +23,7 @@ pull_request_rules:
         strict: smart
   - name: String Import - Auto Merge
     conditions:
+      - title~=import-string-*
       - or:
         - files~=^Blockzilla\/[^\/]*\/[^\/]*.lproj\/*
         - files~=^Blockzilla\/[^\/]*.lproj\/*
