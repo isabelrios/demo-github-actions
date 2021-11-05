@@ -1,6 +1,6 @@
 queue_rules:
   - name: default
-  - conditions:
+    conditions:
       - title~=import-string*
 
 pull_request_rules:
