@@ -1,7 +1,7 @@
 queue_rules:
   - name: default
-  conditions:
-    - title~=import-string*
+    conditions:
+      - title~=import-string*
 
 pull_request_rules:
   - name: Resolve conflict
