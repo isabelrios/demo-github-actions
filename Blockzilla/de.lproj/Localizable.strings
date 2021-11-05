@@ -11,7 +11,7 @@
 "About.privateBullet2" = "Verfolger blockieren (oder Einstellungen ändern, um Verfolger zuzulassen)";
 
 /* Label on About screen */
-"About.privateBullet3" = "Entfernen löscht Cookies sowie Such- und Surf-Chronik";
+"About.privateBullet3" = "ds löscht Cookies sowie Such- und Surf-Chronik";
 
 /* Label on About screen */
 "About.privateBulletHeader" = "Als privaten Browser verwenden:";
