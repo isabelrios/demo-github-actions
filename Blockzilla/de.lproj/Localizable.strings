@@ -19,7 +19,7 @@
 /* Label for row in About screen */
 "About.rowHelp" = "fdsd";
 
-/* Link to Privacy Notice in the About screen */
+/* Link to Privacy  in the About screen */
 "About.rowPrivacy" = "Datenschutzhinweis";
 
 /* Label for row in About screen */
