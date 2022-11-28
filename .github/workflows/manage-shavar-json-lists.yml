@@ -34,5 +34,6 @@ jobs:
 
         sed -i -e 's/sample_shavar/shavar/g' lists2safebrowsing.py
 
-        python3 ./lists2safebrowsing.py
+        echo "run script"
+        python lists2safebrowsing.py
 
