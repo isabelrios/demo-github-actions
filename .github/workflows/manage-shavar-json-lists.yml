@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
     - uses: actions/checkout@v3
       with:
-        repository: 'https://github.com/mozilla-services/shavar-list-creation.git'
+        repository: 'mozilla-services/shavar-list-creation'
         ref: 'creat-json-tracking-protection-lists'
     - name: Modify and run the script
       run: |
