@@ -32,7 +32,7 @@ jobs:
 
         ls
 
-        sed -i -e 's/sample_shavar_list_creation/shavar_list_creation/g' /lists2safebrowsing.py
+        sed -i -e 's/sample_shavar_list_creation/shavar_list_creation/g' lists2safebrowsing.py
 
         python3 ./lists2safebrowsing.py
 
