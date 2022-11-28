@@ -32,7 +32,7 @@ jobs:
 
         ls
         echo "run sed"
-        sed -i -e 's/sample_shavar/shavar/g' lists2safebrowsing.py
+        sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
 
         cat lists2safebrowsing.py
 
