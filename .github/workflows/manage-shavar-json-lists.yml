@@ -28,6 +28,9 @@ jobs:
     - name: Modify and run the script
       run: |
         ls
-        cd shavar-list-creation
-        ls
+        mv sample_shavar_list_creation.ini shavar_list_creation.ini
+
+        sed -i -e 's/sample_shavar_list_creation.ini/shavar_list_creation.ini/g' lists2safebrowsing.py
+
+        python3 ./lists2safebrowsing.py
 
