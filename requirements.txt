@@ -2,3 +2,9 @@ semver
 requests
 ruamel.yaml
 pygithub
+boto
+publicsuffixlist
+trackingprotection-tools
+packaging
+publicsuffixlist
+trackingprotection_tools
