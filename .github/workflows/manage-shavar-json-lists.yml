@@ -31,9 +31,11 @@ jobs:
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
 
         ls
-
+        echo "run sed"
         sed -i -e 's/sample_shavar/shavar/g' lists2safebrowsing.py
 
+        cat lists2safebrowsing.py
+
         echo "run script"
-        python lists2safebrowsing.py
+        python3 lists2safebrowsing.py
 
