@@ -17,11 +17,6 @@ jobs:
       with:
         persist-credentials: false 
         token: ${{ secrets.GITHUB_TOKEN }}
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v1'
-      with:
-        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
-        export_environment_variables: true
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
@@ -34,6 +29,11 @@ jobs:
       with:
         repository: 'mozilla-services/shavar-list-creation'
         ref: 'creat-json-tracking-protection-lists'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+        export_environment_variables: true
     - name: Modify and run the script
       run: |
         ls
