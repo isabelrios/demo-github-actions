@@ -51,6 +51,6 @@ jobs:
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with:
         path: 'shavar_json_files'
-        destination: '/shavar-lists-ios-public/Public/shavar-lists-v0'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v0'
 
 
