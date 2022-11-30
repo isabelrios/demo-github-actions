@@ -21,6 +21,7 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+        export_environment_variables: false
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
       with:
@@ -43,14 +44,14 @@ jobs:
         sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
 
         echo "run script"
-        python3 lists2safebrowsing.py
+        #python3 lists2safebrowsing.py
 
         ls -la
         echo "create folder"
         mkdir shavar_json_files
 
         echo "copy required files into folder"
-        mv ads-track-digest256.json base-cryptomining-track-digest256.json analytics-track-digest256.json base-fingerprinting-track-digest256.json social-track-digest256.json content-track-digest256.json shavar_json_files/
+        #mv ads-track-digest256.json base-cryptomining-track-digest256.json analytics-track-digest256.json base-fingerprinting-track-digest256.json social-track-digest256.json content-track-digest256.json shavar_json_files/
     - id: 'upload-folder'
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with:
