@@ -34,10 +34,10 @@ jobs:
         echo "run sed"
         sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
 
-        cat lists2safebrowsing.py
-
         echo "run script"
         python3 lists2safebrowsing.py
+
+        ls -la
 
         mkdir shavar_json_files
 
