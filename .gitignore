@@ -1,2 +1,4 @@
-/demo-github-actions/gha-creds-*.json
-/demo-github-actions/demo-github-actions/gha-creds-*.json
+~/demo-github-actions/gha-creds-*.json
+~/demo-github-actions/demo-github-actions/gha-creds-*.json
+./demo-github-actions/gha-creds-*.json
+./demo-github-actions/demo-github-actions/gha-creds-*.json
