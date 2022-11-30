@@ -1,11 +1,11 @@
 name: Run script on shavar-creation-lists
 on: workflow_dispatch
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 jobs:
-  job_id:
-    permissions:
-      contents: 'read'
-      id-token: 'write'
   build:
     runs-on: ubuntu-latest
     strategy:
