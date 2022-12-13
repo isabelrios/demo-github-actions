@@ -72,7 +72,7 @@ jobs:
           echo "loop $i"
 
           echo "${generatedFiles[$i]}" 
-          echo "${oldFiles[$i]]}"
+          echo "${oldFiles[$i]}"
           echo "DIFF"
           diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}"
           if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]
