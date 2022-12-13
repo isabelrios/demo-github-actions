@@ -40,7 +40,7 @@ jobs:
         curl -X GET -o "version.txt" https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt
     - name: Get shavar-files-latest-folder
       run: |
-        curl -X GET -o "content-track-digest256-new.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/ads-track-digest256.json
+        #curl -X GET -o "content-track-digest256-new.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/content-track-digest256.json
     - name: Locally generate shavar JSON files
       run: |
         ls
