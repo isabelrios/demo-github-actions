@@ -43,7 +43,7 @@ jobs:
         createNewVersion=false
         echo "createNewVersion=$createNewVersion" >> $GITHUB_ENV
     - name: Locally generate shavar JSON file
-      if : ${{ env.createNewVersion }}
+      if : ${{ env.createNewVersion == true }}
       run: |
         ls
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
