@@ -108,14 +108,14 @@ jobs:
         path: 'shavar_json_files'
         destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
         parent: false
-    - id: 'upload-folder'
+    - id: 'upload-folder-1'
       uses: 'google-github-actions/upload-cloud-storage@v1'
       if: ${{ env.createNewVersion == true }}
       with:
         path: 'version.txt'
         destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
         parent: false
-    - id: 'upload-folder'
+    - id: 'upload-folder-2'
       uses: 'google-github-actions/upload-cloud-storage@v1'
       if: ${{ env.createNewVersion == true }}
       with:
