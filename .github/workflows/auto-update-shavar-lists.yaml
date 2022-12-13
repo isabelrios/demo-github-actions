@@ -40,7 +40,7 @@ jobs:
         curl -X GET -o "version.txt" https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt
     - name: Get shavar-files-latest-folder
       run: |
-        curl -X GET -o "content-track-digest256.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/ads-track-digest256.json
+        curl -X GET -o "content-track-digest256-new.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/ads-track-digest256.json
     - name: Locally generate shavar JSON files
       run: |
         ls
@@ -63,13 +63,13 @@ jobs:
       run: |
         generatedFiles=(shavar_json_files/content-track-digest256.json)
 
-        oldFiles=(content-track-digest256.json)
+        oldFiles=(content-track-digest256-new.json)
 
         createNewVersion=false
 
         for ((i=0; i<${#generatedFiles[@]}; i++)); do
           echo "loop $i"
-          #do something to each element of array
+
           echo "${generatedFiles[$i]}" "${oldFiles[$i]]}"
           echo "DIFF"
           diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}"
