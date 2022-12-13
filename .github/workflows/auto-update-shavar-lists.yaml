@@ -1,4 +1,4 @@
-name: Run script on shavar-creation-lists
+name: Run script on shavar-creation-lists 2
 on: workflow_dispatch
 
 permissions:
@@ -34,11 +34,12 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCLOUD_AUTH }}'
         export_environment_variables: true
-    - name: Get latest shavar version
+    - name: Download version file
       run: |
-        latest_version=$(curl -X GET https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt)
-        echo "latest_version=$latest_version" >> $GITHUB_ENV
+        echo "Download version.txt file"
+        curl -X GET -o "version.txt" https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt
     - name: Get shavar-files-latest-folder
+        run: |
         curl -X GET -o "content-track-digest256.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/ads-track-digest256.json
     - name: Locally generate shavar JSON files
       run: |
