@@ -74,8 +74,9 @@ jobs:
           echo "${generatedFiles[$i]}" 
           echo "${oldFiles[$i]}"
           echo "DIFF"
-          diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}"
-          if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]
+          changes=$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")
+          #if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]
+          if [ ! -z "$changes" ]
           then
             echo "there are changes in files"
             echo "loop $i"
