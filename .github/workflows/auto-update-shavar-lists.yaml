@@ -45,6 +45,7 @@ jobs:
     - name: Locally generate shavar JSON files
       run: |
         ls
+        ls test
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
 
         echo "run sed"
@@ -70,7 +71,8 @@ jobs:
         for ((i=0; i<${#generatedFiles[@]}; i++)); do
           echo "loop $i"
 
-          echo "${generatedFiles[$i]}" "${oldFiles[$i]]}"
+          echo "${generatedFiles[$i]}" 
+          echo "${oldFiles[$i]]}"
           echo "DIFF"
           diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}"
           if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]
