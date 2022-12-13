@@ -63,7 +63,7 @@ jobs:
       run: |
         generatedFiles=(shavar_json_files/content-track-digest256.json)
 
-        oldFiles=(new/content-track-digest256.json)
+        oldFiles=(content-track-digest256.json)
 
         createNewVersion=false
 
