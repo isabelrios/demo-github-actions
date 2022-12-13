@@ -1,0 +1,124 @@
+name: Run script on shavar-creation-lists
+on: workflow_dispatch
+
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false 
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - uses: actions/checkout@v3
+      with:
+        repository: 'mozilla-services/shavar-list-creation'
+        ref: 'creat-json-tracking-protection-lists'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+        export_environment_variables: true
+    - name: Get latest shavar version
+      run: |
+        latest_version=$(curl -X GET https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt)
+        echo "latest_version=$latest_version" >> $GITHUB_ENV
+    - name: Get shavar-files-latest-folder
+        curl -X GET -o "content-track-digest256.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/ads-track-digest256.json
+    - name: Locally generate shavar JSON files
+      run: |
+        ls
+        mv sample_shavar_list_creation.ini shavar_list_creation.ini
+
+        ls
+        echo "run sed"
+        sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
+
+        echo "run script"
+        python3 lists2safebrowsing.py
+
+        ls -la
+        echo "create folder"
+        mkdir shavar_json_files
+
+        echo "copy required files into folder"
+        mv ads-track-digest256.json base-cryptomining-track-digest256.json analytics-track-digest256.json base-fingerprinting-track-digest256.json social-track-digest256.json content-track-digest256.json shavar_json_files/
+    - name: Compare JSON files
+      run: |
+        generatedFiles=(shavar_json_files/content-track-digest256.json)
+
+        oldFiles=(new/content-track-digest256.json)
+
+        createNewVersion=false
+
+        for ((i=0; i<${#generatedFiles[@]}; i++)); do
+          echo "loop $i"
+          #do something to each element of array
+          echo "${generatedFiles[$i]}" "${oldFiles[$i]]}"
+          echo "DIFF"
+          diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}"
+          if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]
+          then
+            echo "there are changes in files"
+            echo "loop $i"
+            createNewVersion=true
+            echo "createNewVersion=$createNewVersion" >> $GITHUB_ENV
+          else
+            echo "There are NO changes in files"
+          fi
+        done
+    - name: Create folders
+      if: ${{ env.createNewVersion == true }}
+      run: |
+        echo "Read version folder"
+        version=`cat version.txt`
+        echo $version
+        echo "Create version folder +1"
+        mkdir "shavar_version_$(( ${version} + 1))"
+        echo "shavar_version_$(( ${version} + 1))"
+
+        echo "Copy all generated Files into a new folder +1 and to new"
+        for ((i=0; i<${#generatedFiles[@]}; i++)); do
+          cp ${generatedFiles[$i]} "shavar_version_$(( ${version} + 1))"
+          cp ${generatedFiles[$i]} "new"
+          echo "Files copied to the new release folder"
+        done
+        sed -i -e "s/$version/$(( ${version} + 1))/g" version.txt
+
+    - id: 'upload-folder'
+      if: ${{ env.createNewVersion == true }}
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      with:
+        path: 'shavar_json_files'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
+        parent: false
+    - id: 'upload-folder'
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      if: ${{ env.createNewVersion == true }}
+      with:
+        path: 'version.txt'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
+        parent: false
+    - id: 'upload-folder'
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      if: ${{ env.createNewVersion == true }}
+      with:
+        path: 'shavar_json_files'
+        destination: 'shavar-lists-ios-public/Public/new'
+        parent: false
+
