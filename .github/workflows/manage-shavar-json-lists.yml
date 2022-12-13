@@ -53,6 +53,8 @@ jobs:
         ls -la
         echo "create folder"
         mkdir shavar_json_files
+        cd shavar_json_files
+        touch test.txt
 
         echo "copy required files into folder"
         #mv ads-track-digest256.json base-cryptomining-track-digest256.json analytics-track-digest256.json base-fingerprinting-track-digest256.json social-track-digest256.json content-track-digest256.json shavar_json_files/
