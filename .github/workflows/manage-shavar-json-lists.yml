@@ -34,11 +34,16 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCLOUD_AUTH }}'
         export_environment_variables: true
-    - name: Get latest shavar version
+    #- name: Get latest shavar version
+    #  run: |
+    #    latest_version=$(curl -X GET https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt)
+    #    echo "latest_version=$latest_version" >> $GITHUB_ENV
+    - name: Get shavar-files-latest-folder
       run: |
-        latest_version=$(curl -X GET https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt)
-        echo "latest_version=$latest_version" >> $GITHUB_ENV
-    - name: Modify and run the script
+        createNewVersion=false
+        echo "createNewVersion=$createNewVersion" >> $GITHUB_ENV
+    - name: Locally generate shavar JSON file
+      if : ${{ env.createNewVersion }}
       run: |
         ls
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
@@ -53,8 +58,6 @@ jobs:
         ls -la
         echo "create folder"
         mkdir shavar_json_files
-        cd shavar_json_files
-        touch test.txt
 
         echo "copy required files into folder"
         #mv ads-track-digest256.json base-cryptomining-track-digest256.json analytics-track-digest256.json base-fingerprinting-track-digest256.json social-track-digest256.json content-track-digest256.json shavar_json_files/
@@ -62,7 +65,5 @@ jobs:
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with:
         path: 'shavar_json_files'
-        destination: 'shavar-lists-ios-public/Public/shavar-lists-${{ env.latest_version }}'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
         parent: false
-
-
