@@ -74,7 +74,7 @@ jobs:
           echo "${generatedFiles[$i]}" 
           echo "${oldFiles[$i]}"
           echo "DIFF"
-          change="$(diff "${generatedFiles[$i]}" "${oldFiles[$i]}")"
+          change="$(diff -q "${generatedFiles[$i]}" "${oldFiles[$i]}")"
           #output="`cat tmp.txt`"
           echo "$change"
           echo "after"
