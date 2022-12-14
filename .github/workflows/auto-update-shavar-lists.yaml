@@ -93,6 +93,7 @@ jobs:
         echo "Read version folder"
         version=`cat version.txt`
         echo $version
+        echo "version=$version" >> $GITHUB_ENV
         echo "Create version folder +1"
         mkdir "shavar_version_$(( ${version} + 1))"
         echo "shavar_version_$(( ${version} + 1))"
@@ -110,14 +111,14 @@ jobs:
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with:
         path: 'shavar_json_files'
-        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.version }}'
         parent: false
     - id: 'upload-folder-1'
       uses: 'google-github-actions/upload-cloud-storage@v1'
       if: ${{ env.createNewVersion }}
       with:
         path: 'version.txt'
-        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
+        destination: 'shavar-lists-ios-public/Public'
         parent: false
     - id: 'upload-folder-2'
       uses: 'google-github-actions/upload-cloud-storage@v1'
