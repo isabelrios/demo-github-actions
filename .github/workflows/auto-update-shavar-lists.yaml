@@ -80,7 +80,7 @@ jobs:
           echo "after"
           #if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]; then
           #if [[ ! -z "$changes" ]]; then
-          if [ "$output" = "" ]
+          if [ "$output" = "" ]; then
             echo "there are changes in files"
             echo "loop $i"
             createNewVersion=true
