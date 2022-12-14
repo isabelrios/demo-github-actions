@@ -74,9 +74,8 @@ jobs:
           echo "${generatedFiles[$i]}" 
           echo "${oldFiles[$i]}"
           echo "DIFF"
-          diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}" > tmp.txt
+          diff "${generatedFiles[$i]}" "${oldFiles[$i]}" > tmp.txt
           output="`cat tmp.txt`"
-          echo "$changes"
           echo "after"
           #if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]; then
           #if [[ ! -z "$changes" ]]; then
