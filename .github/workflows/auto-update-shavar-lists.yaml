@@ -75,23 +75,20 @@ jobs:
           echo "${oldFiles[$i]}"
           echo "DIFF"
           diff ${generatedFiles[$i]} ${oldFiles[$i]}|grep ">"|cut -c 3- > foo.txt
-          #change="$(diff -q "${generatedFiles[$i]}" "${oldFiles[$i]}")"
           output="`cat foo.txt`"
-          #echo "$change"
           echo "after"
-          #if [ ! -z "$(diff --unified "${generatedFiles[$i]}" "${oldFiles[$i]}")" ]; then
-          #if [[ ! -z "$change" ]]; then
           if [ ! "$output" = "" ]; then
             echo "there are changes in files"
             echo "loop $i"
             createNewVersion=true
+            echo $createNewVersion
             echo "createNewVersion=$createNewVersion" >> $GITHUB_ENV
           else
             echo "There are NO changes in files"
           fi
         done
     - name: Create folders
-      if: ${{ env.createNewVersion == true }}
+      if: ${{ env.createNewVersion }}
       run: |
         echo "Read version folder"
         version=`cat version.txt`
@@ -109,7 +106,7 @@ jobs:
         sed -i -e "s/$version/$(( ${version} + 1))/g" version.txt
 
     - id: 'upload-folder'
-      if: ${{ env.createNewVersion == true }}
+      if: ${{ env.createNewVersion }}
       uses: 'google-github-actions/upload-cloud-storage@v1'
       with:
         path: 'shavar_json_files'
@@ -117,14 +114,14 @@ jobs:
         parent: false
     - id: 'upload-folder-1'
       uses: 'google-github-actions/upload-cloud-storage@v1'
-      if: ${{ env.createNewVersion == true }}
+      if: ${{ env.createNewVersion }}
       with:
         path: 'version.txt'
         destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.latest_version }}'
         parent: false
     - id: 'upload-folder-2'
       uses: 'google-github-actions/upload-cloud-storage@v1'
-      if: ${{ env.createNewVersion == true }}
+      if: ${{ env.createNewVersion }}
       with:
         path: 'shavar_json_files'
         destination: 'shavar-lists-ios-public/Public/new'
