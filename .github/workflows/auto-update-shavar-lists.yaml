@@ -105,6 +105,8 @@ jobs:
           echo "Files copied to the new release folder"
         done
         sed -i -e "s/$version/$(( ${version} + 1))/g" version.txt
+        new_version=`cat version.txt`
+        echo "$new_version"
 
     - id: 'upload-folder'
       if: ${{ env.createNewVersion }}
