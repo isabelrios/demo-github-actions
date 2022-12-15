@@ -28,7 +28,7 @@ jobs:
     - name: Download version file
       run: |
         echo "Download version.txt file"
-        curl -X GET -o "version.txt" https
+        curl -X GET -o "version.txt" https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt
         new_version=`cat version.txt`
         echo "$new_version"
         echo "new_version=$new_version" >> $GITHUB_ENV
