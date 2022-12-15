@@ -28,6 +28,7 @@ jobs:
         new_version=`cat version.txt`
         echo "$new_version"
         echo "new_version=$new_version" >> $GITHUB_ENV
+        rm version.txt
     - name: Compare shavar versions from repo and gcp
       run: |
         python update_shavar_version.py
@@ -42,4 +43,4 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: new-version-for-shavar-lists-${{ env.new_version }}
         branch: new-version-for-shavar-lists-${{ env.new_version }}
-        title: "New version for shavar lists"
+        title: new-version-for-shavar-lists-${{ env.new_version }}
