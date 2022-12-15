@@ -39,10 +39,10 @@ jobs:
       run: |-
         git diff || (git add content-blocker.sh)
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v4
+      uses: peter-evans/create-pull-request@v3
       with:
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: GitHub <noreply@github.com>
         token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: New version for shavar lists ${{ env.new_version }}
-        title: New version for shavar lists
+        commit-message: new-version-for-shavar-lists-${{ env.new_version }}
+        title: "New version for shavar lists"
