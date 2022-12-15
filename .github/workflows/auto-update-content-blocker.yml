@@ -34,7 +34,7 @@ jobs:
         echo "new_version=$new_version" >> $GITHUB_ENV
     - name: Compare shavar versions from repo and gcp
       run: |
-        python update_shavar_version.sh
+        python update_shavar_version.py
     - name: Update content-blocker file
       run: |-
         git diff || (git add content-blocker.sh)
