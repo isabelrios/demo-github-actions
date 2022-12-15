@@ -1,10 +1,6 @@
 name: Create PR if there is a new shavar version
 on: workflow_dispatch
 
-permissions:
-  contents: 'read'
-  id-token: 'write'
-
 jobs:
   build:
     runs-on: ubuntu-latest
