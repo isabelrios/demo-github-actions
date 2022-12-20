@@ -41,14 +41,13 @@ jobs:
     - name: Get shavar-files-latest-folder
       run: |
         mkdir tmp
-        files="ads-track-digest256.json analytics-track-digest256.json base-cryptomining-track-digest256.json base-fingerprinting-track-digest256.json content-track-digest256.json social-track-digest256.json"
+        files="ads-track-digest256.json analytics-track-digest256.json base-cryptomining-track-digest256.json base-fingerprinting-track-digest256.json content-track-digest256.json social-track-digest256.json disconnect-entitylist.json"
 
         for file in $files
         do
           echo "$file"
           curl "https://storage.googleapis.com/shavar-lists-ios-public/Public/shavar-lists-v0/${file}" -o "tmp/${file}_new.json"
         done
-        #curl -X GET -o "test/content-track-digest256-new.json" https://storage.googleapis.com/shavar-lists-ios-public/Public/new/content-track-digest256.json
     - name: Get disconnect-entitylist file
       run: |
         git clone https://github.com/mozilla-services/shavar-prod-lists.git
@@ -81,8 +80,6 @@ jobs:
         createNewVersion=false
 
         for ((i=0; i<${#generatedFiles[@]}; i++)); do
-          echo "loop $i"
-
           echo "${generatedFiles[$i]}" 
           echo "${oldFiles[$i]}"
           echo "DIFF"
@@ -91,7 +88,6 @@ jobs:
           echo "after"
           if [ ! "$output" = "" ]; then
             echo "there are changes in files"
-            echo "loop $i"
             createNewVersion=true
             echo $createNewVersion
             echo "createNewVersion=$createNewVersion" >> $GITHUB_ENV
