@@ -43,6 +43,7 @@ jobs:
       run: |
         ls
         # Git pull and rebase to be sure we get the latest lists 
+        git checkout main
         git pull
         git checkout creat-json-tracking-protection-lists
         git rebase main
