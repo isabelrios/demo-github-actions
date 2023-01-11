@@ -1,0 +1,123 @@
+name: Run script on shavar-creation-lists
+on: workflow_dispatch
+
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false 
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - uses: actions/checkout@v3
+      with:
+        repository: 'mozilla-services/shavar-list-creation'
+        #ref: 'creat-json-tracking-protection-lists'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCLOUD_AUTH }}'
+        export_environment_variables: true
+    - name: Download version file
+      run: |
+        echo "Download version.txt file"
+        curl -X GET -o "version.txt" https://storage.googleapis.com/shavar-lists-ios-public/Public/version.txt
+    - name: Locally generate shavar JSON files
+      run: |
+        ls
+        # Git pull and rebase to be sure we get the latest lists 
+        git pull
+        git checkout creat-json-tracking-protection-lists
+        git rebase main
+
+        mv sample_shavar_list_creation.ini shavar_list_creation.ini
+
+        echo "Modify the script so that it works"
+        sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
+
+        echo "Run script to get JSON files"
+        python3 lists2safebrowsing.py
+
+        # Once the files are generated, check which is the latest version of these files
+        LATEST_SHAVAR_VERSION=$(ls | egrep -o '[0-9]{3}.[0-9]'| sort -n | tail -n 1 | sed 's/\.0//g')
+        echo $LATEST_SHAVAR_VERSION
+
+        CURRENT_VERSION=`cat version.txt`
+        SHOULD_UPDATE_VERSION=false
+
+        # Compare with version saved in the bucket
+        if [ "$LATEST_SHAVAR_VERSION" -gt "$CURRENT_VERSION" ];
+        then
+          echo "Yes, let's get new JSON files"
+          SHOULD_UPDATE_VERSION=true
+          echo "SHOULD_UPDATE_VERSION=$SHOULD_UPDATE_VERSION" >> $GITHUB_ENV
+
+          # Create new folder with the new version
+          mkdir "shavar_version_${LATEST_SHAVAR_VERSION}"
+          
+          # Copy all files into a new folder named with the latest version
+          cp -r ${LATEST_SHAVAR_VERSION}.0*.json shavar_version_${LATEST_SHAVAR_VERSION}
+          echo ls shavar_version_${LATEST_SHAVAR_VERSION}
+    
+          cd shavar_version_${LATEST_SHAVAR_VERSION}
+
+          # Once the files are stored in their versioned folder, remove the version from the file name
+
+          for file in *; do
+            echo $file
+            #This works, now we need to use variable instead of that value
+            mv "$file" "$(echo $file | sed -E "s/$LATEST_SHAVAR_VERSION\.0-//g")"
+          done
+
+          # Update the version in the version.txt file
+          sed -i -e "s/$CURRENT_VERSION/$LATEST_SHAVAR_VERSION/g" version.txt
+          UPDATE_SHAVAR_VERSION=`cat version.txt`
+          echo "$UPDATE_SHAVAR_VERSION"
+          echo "UPDATE_SHAVAR_VERSION=$UPDATE_SHAVAR_VERSION" >> $GITHUB_ENV
+
+        else
+          echo "There is not any new version"
+        fi
+    - name: Get disconnect-entitylist file
+      if: ${{ env.SHOULD_UPDATE_VERSION }}
+      run: |
+        git clone https://github.com/mozilla-services/shavar-prod-lists.git
+        cd shavar-prod-lists && git checkout ${{ env.UPDATE_SHAVAR_VERSION }}.0
+        cp disconnect-entitylist.json ../shavar_version_${UPDATE_SHAVAR_VERSION}
+        ls
+    - id: 'upload-folder'
+      if: ${{ env.SHOULD_UPDATE_VERSION }}
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      with:
+        path: 'shavar_version_${{ env.UPDATE_SHAVAR_VERSION }}'
+        destination: 'shavar-lists-ios-public/Public/shavar-lists-v${{ env.UPDATE_SHAVAR_VERSION }}'
+        parent: false
+    - id: 'upload-folder-1'
+      uses: 'google-github-actions/upload-cloud-storage@v1'
+      if: ${{ env.SHOULD_UPDATE_VERSION }}
+      with:
+        path: 'version.txt'
+        destination: 'shavar-lists-ios-public/Public'
+        parent: false
+
