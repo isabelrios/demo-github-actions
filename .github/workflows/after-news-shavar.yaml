@@ -28,8 +28,8 @@ jobs:
         pip install packaging
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 0
-        repository: 'mozilla-services/shavar-list-creation'
+        #fetch-depth: 0
+        repository: 'irios3/shavar-list-creation'
         ref: 'creat-json-tracking-protection-lists'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -45,16 +45,16 @@ jobs:
         ls
         # Git pull and rebase to be sure we get the latest lists
         #git fetch origin
-        git config --global user.name "Mobile Test Eng"
+        #git config --global user.name "Mobile Test Eng"
         git config --global user.email isabelrios@gmail.com
         #git branch
 
-        git rebase origin/main
+        #git rebase origin/main
 
-        mv sample_shavar_list_creation.ini shavar_list_creation.ini
+        #mv sample_shavar_list_creation.ini shavar_list_creation.ini
 
-        echo "Modify the script so that it works"
-        sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
+        #echo "Modify the script so that it works"
+        #sed -i -e 's/_creat_latest_prod/_creation/g' lists2safebrowsing.py
         #sed -i -e 's/revert_config(config, branch_name)/#revert_config(config, branch_name)/g' lists2safebrowsing.py
 
         echo "Run script to get JSON files"
@@ -72,7 +72,7 @@ jobs:
         SHOULD_UPDATE_VERSION=false
 
         # Compare with version saved in the bucket
-        if [ "$LATEST_SHAVAR_VERSION" -gt "$CURRENT_VERSION" ];
+        if [ "$LATEST_SHAVAR_VERSION" -eq "$CURRENT_VERSION" ];
         then
           echo "Yes, let's get new JSON files"
           SHOULD_UPDATE_VERSION=true
