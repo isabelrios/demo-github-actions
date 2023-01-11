@@ -25,10 +25,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-        repository: 'mozilla-services/shavar-list-creation'
+    #- uses: actions/checkout@v3
+    #  with:
+    #    fetch-depth: 0
+    #    repository: 'mozilla-services/shavar-list-creation'
         #ref: 'creat-json-tracking-protection-lists'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
@@ -43,6 +43,7 @@ jobs:
       run: |
         ls
         # Git pull and rebase to be sure we get the latest lists
+        git clone https://github.com/mozilla-services/shavar-list-creation.git && cd shavar-list-creation
         git checkout creat-json-tracking-protection-lists
         git rebase main
 
