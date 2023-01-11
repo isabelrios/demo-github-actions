@@ -29,7 +29,7 @@ jobs:
       with:
         fetch-depth: 0
         repository: 'mozilla-services/shavar-list-creation'
-        ref: 'creat-json-tracking-protection-lists'
+        #ref: 'creat-json-tracking-protection-lists'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
@@ -42,7 +42,8 @@ jobs:
     - name: Locally generate shavar JSON files
       run: |
         ls
-        # Git pull and rebase to be sure we get the latest lists 
+        # Git pull and rebase to be sure we get the latest lists
+        git checkout creat-json-tracking-protection-lists
         git rebase main
 
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
