@@ -44,7 +44,7 @@ jobs:
         # Git pull and rebase to be sure we get the latest lists 
         git pull
         git checkout creat-json-tracking-protection-lists
-        git rebase main
+        #git rebase main
 
         mv sample_shavar_list_creation.ini shavar_list_creation.ini
 
