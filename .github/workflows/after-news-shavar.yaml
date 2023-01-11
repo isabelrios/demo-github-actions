@@ -58,6 +58,9 @@ jobs:
         echo "Run script to get JSON files"
         python3 lists2safebrowsing.py
 
+        echo "Lists are generated"
+        ls
+
         # Once the files are generated, check which is the latest version of these files
         LATEST_SHAVAR_VERSION=$(ls | egrep -o '[0-9]{3}.[0-9]'| sort -n | tail -n 1 | sed 's/\.0//g')
         echo $LATEST_SHAVAR_VERSION
