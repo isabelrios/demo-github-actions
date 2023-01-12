@@ -96,6 +96,7 @@ jobs:
           done
 
           # Update the version in the version.txt file
+          cd ..
           sed -i -e "s/$CURRENT_VERSION/$LATEST_SHAVAR_VERSION/g" version.txt
           UPDATE_SHAVAR_VERSION=`cat version.txt`
           echo "$UPDATE_SHAVAR_VERSION"
