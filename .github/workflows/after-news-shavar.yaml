@@ -72,7 +72,7 @@ jobs:
         SHOULD_UPDATE_VERSION=false
 
         # Compare with version saved in the bucket
-        if [ "$LATEST_SHAVAR_VERSION" -eq "$CURRENT_VERSION" ];
+        if [ "$LATEST_SHAVAR_VERSION" -gt "$CURRENT_VERSION" ];
         then
           echo "Yes, let's get new JSON files"
           SHOULD_UPDATE_VERSION=true
