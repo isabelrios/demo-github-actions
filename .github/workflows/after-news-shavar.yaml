@@ -29,7 +29,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         #fetch-depth: 0
-        repository: 'irios3/shavar-list-creation'
+        repository: 'isabelrios/shavar-list-creation-irios'
         ref: 'creat-json-tracking-protection-lists'
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
