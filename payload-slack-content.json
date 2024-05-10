@@ -7,7 +7,7 @@
                     "type": "header",
                     "text": {
                         "type": "plain_text",
-                        "text": ":looker: Looker Github Action :github: - Weekly Update",
+                        "text": "[WIP NOTIFICATION]:looker: Looker Github Action :github: - Weekly Update",
                         "emoji": true
                     }
                 },
