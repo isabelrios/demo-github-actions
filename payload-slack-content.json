@@ -1,7 +1,7 @@
 {
+    "color": "${{ env.PULL_REQUEST_JOB_STATUS_COLOR }}",
     "attachments": [
         {
-            "color": "${{ env.PULL_REQUEST_JOB_STATUS_COLOR }}",
             "blocks": [
                 {
                     "type": "header",
