@@ -37,7 +37,7 @@ jobs:
       env:
         PULL_REQUEST_JOB_STATUS: ${{ job.status }}
         PULL_REQUEST_JOB_STATUS_COLOR: ${{ job.status == 'success' && vars.COLOR_GREEN || job.status == 'failure' && vars.COLOR_RED || vars.COLOR_ORANGE }}
-        JOB_SUCCESS: ${{ job.status == 'success' && ':white_check_mark:'' }}
+        JOB_SUCCESS: ${{ job.status == 'success' && ':white_check_mark:' }}
         PULL_REQUEST_COMMIT_URL: ${{ github.event.pull_request.head.repo.html_url }}/commit/${{ github.event.pull_request.head.sha }}
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
