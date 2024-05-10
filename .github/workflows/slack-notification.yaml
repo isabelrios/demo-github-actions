@@ -36,7 +36,7 @@ jobs:
       uses: slackapi/slack-github-action@v1.26.0
       env:
         PULL_REQUEST_JOB_STATUS: ${{ job.status }}
-        PULL_REQUEST_JOB_STATUS_COLOR: ${{ job.status == 'success' && "#36a64f" }}
+        PULL_REQUEST_JOB_STATUS_COLOR: ${{ job.status == 'success' && '#36a64f' }}
         JOB_STATUS: ${{ job.status == 'success' && ':white_check_mark:' || job.status == 'failure' && ':x:' }}
         PULL_REQUEST_COMMIT_URL: ${{ github.event.pull_request.head.repo.html_url }}/commit/${{ github.event.pull_request.head.sha }}
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
