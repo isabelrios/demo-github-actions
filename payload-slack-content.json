@@ -17,8 +17,8 @@
                 {
                     "type": "section",
                     "text": {
-                        "type": "plain_text",
-                        "text": "Status: ${{ env.JOB_SUCCESS }}\n Logs: <${{ env.JOB_LOG_URL }}|Build Logs>",
+                        "type": "mrkdwn",
+                        "text": "Status: ${{ env.JOB_STATUS }}\n Logs: <${{ env.JOB_LOG_URL }}|Build Logs>",
                         "emoji": true
                     }
                 },
