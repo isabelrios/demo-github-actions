@@ -1,0 +1,46 @@
+name: Try create a new commit
+on:
+  workflow_dispatch:
+    inputs:
+      branchName:
+        description: 'Default branch'
+        required: true
+        default: 'master'
+
+env:
+  PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false 
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Set job log URL
+        run: echo "JOB_LOG_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
+    - name: print log JOB_LOG_URL
+        run: echo {{ env.JOB_LOG_URL }}
+    - name: Send custom JSON data to Slack workflow
+      if: always()
+      id: slack
+      uses: slackapi/slack-github-action@v1.26.0
+      env:
+        PULL_REQUEST_JOB_STATUS: ${{ job.status }}
+        PULL_REQUEST_JOB_STATUS_COLOR: ${{ job.status == 'success' && vars.COLOR_GREEN || job.status == 'failure' && vars.COLOR_RED || vars.COLOR_ORANGE }}
+        JOB_SUCCESS: ${{ job.status == 'success' && ':white_check_mark:'' }}
+        PULL_REQUEST_COMMIT_URL: ${{ github.event.pull_request.head.repo.html_url }}/commit/${{ github.event.pull_request.head.sha }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      with:
+        payload-file-path: "./payload-slack-content.json"
