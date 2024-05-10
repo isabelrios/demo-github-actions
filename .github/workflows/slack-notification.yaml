@@ -1,4 +1,4 @@
-name: Try create a new commit
+name: Slack step
 on:
   workflow_dispatch:
     inputs:
@@ -27,9 +27,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Set job log URL
-        run: echo "JOB_LOG_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
+      run: echo "JOB_LOG_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_ENV
     - name: print log JOB_LOG_URL
-        run: echo {{ env.JOB_LOG_URL }}
+      run: echo {{ env.JOB_LOG_URL }}
     - name: Send custom JSON data to Slack workflow
       if: always()
       id: slack
