@@ -46,4 +46,4 @@ jobs:
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
 
       with:
-        payload-file-path: "../test-fixtures/payload-slack-content2.json"
+        payload-file-path: "./test-fixtures/payload-slack-content2.json"
